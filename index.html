@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tile map</title>
+    <script src="js/phaser.js"></script>
+</head>
+<body>
+<script>
+    var game = new Phaser.Game(1334,760,Phaser.CANVAS,'',{
+        preload:preload,
+        create:create,
+        update:update
+    });
+    function preload() {
+
+        game.load.image('yuansu','res/yuansu.png');
+        game.load.image('bgImage','res/bgImage.png');
+        game.load.tilemap('map','res/tilemap.json',null,Phaser.Tilemap.TILED_JSON);
+    }
+    var map;
+    var bg;
+    function create() {
+        bg = game.add.tileSprite(0,0,game.width,601,'bgImage');
+        bg.autoScroll(-10,0);
+        map = game.add.tilemap('map');
+        map.addTilesetImage('yuansu','yuansu');
+        bgLayer = map.createLayer('road');
+        bgLayer.resizeWorld();
+
+    }
+    function update() {
+        game.camera.x+= 10;
+        bg.x = game.camera.x;
+    }
+</script>
+</body>
+</html>
